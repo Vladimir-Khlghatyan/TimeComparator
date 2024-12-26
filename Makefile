@@ -5,7 +5,7 @@ RM			= rm -f
 # CFLAGS		= -Wall -Wextra -Werror
 NAME		= TimeComparator
 
-%.o: %.cpp *.hpp
+%.o: %.cpp *.h
 			@$(CC) ${CFLAGS} -c $< -o $@
 
 $(NAME):	$(OBJS)
