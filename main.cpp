@@ -1,7 +1,6 @@
 #include "header.h"
 #include <iostream>
-#include <iomanip>
-#include <sys/time.h>
+#include <chrono>
 
 int main()
 {
@@ -14,26 +13,23 @@ int main()
 	// -------------------------------------------------------------------------------
 	
 	// --- Approach1 -----------------------------------------------------------------
-	struct timeval tv;
-	gettimeofday(&tv, NULL);
-	long long startTime = tv.tv_sec * 1000000LL + tv.tv_usec;
+	auto start1 = std::chrono::high_resolution_clock::now();
 	approach1(/*some argse*/);
-	gettimeofday(&tv, NULL);
-	long long endTime = tv.tv_sec * 1000000LL + tv.tv_usec;
-	std::cout << "Duration of the 1st approach: " << std::setprecision(5);
-	std::cout << (endTime - startTime) / 1000.0 << " ms" << std::endl;
+	auto end1 = std::chrono::high_resolution_clock::now();
 	// -------------------------------------------------------------------------------
 
 
 	// --- Approach2 -----------------------------------------------------------------
-	gettimeofday(&tv, NULL);
-	startTime = tv.tv_sec * 1000000LL + tv.tv_usec;
+	auto start2 = std::chrono::high_resolution_clock::now();
 	approach2(/*some argse*/);
-	gettimeofday(&tv, NULL);
-	endTime = tv.tv_sec * 1000000LL + tv.tv_usec;
-	std::cout << "Duration of the 2nd approach: " << std::setprecision(5);
-	std::cout << (endTime - startTime) / 1000.0 << " ms" << std::endl;
+	auto end2 = std::chrono::high_resolution_clock::now();
 	// -------------------------------------------------------------------------------
+
+
+	auto duration1 = std::chrono::duration_cast<std::chrono::microseconds>(end1 - start1).count();
+	auto duration2 = std::chrono::duration_cast<std::chrono::microseconds>(end2 - start2).count();
+	std::cout << "Duration of the 1st approach: " << duration1 << " microseconds" << std::endl;
+	std::cout << "Duration of the 2nd approach: " << duration2 << " microseconds" << std::endl;
 
 	return 0;
 }
